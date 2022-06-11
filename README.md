@@ -18,3 +18,9 @@ Activate virtual env
 
 ## Visit admin:
 `http://127.0.0.1:8000/admin`
+
+# Repo config
+
+## Precommit config
+`pre-commit install`
+`pre-commit install --hook-type commit-msg`
