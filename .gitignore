@@ -3,6 +3,27 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+# Editor/IDE
+.vscode
+
+# Virtual envs
+ienv
+env
+venv
+zz_env
+
+# Testing and coverage
+pruebaa*
+.coverage*
+htmlcov
+.pytest_cache
+
+.DS_Store
+__pycache__/
+*.py[cod]
+*$py.class
+
 # C extensions
 *.so
 
@@ -25,6 +46,13 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Mongo
+mongo
+mongo_volume
+
+# C extensions
+*.so
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
