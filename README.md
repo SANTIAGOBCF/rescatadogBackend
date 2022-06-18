@@ -1,4 +1,7 @@
 # Quick Install
+## Python version
+`Python 3.10`
+
 ## Create a virtual env:
 `python3 -m venv zz_env`
 
