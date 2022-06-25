@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    #Apps created by us
+    'adoptions',
     'pet_management',
 ]
 

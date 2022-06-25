@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 from django.urls import path
 from ninja import NinjaAPI
 from ninja.security import HttpBearer
-
 from auth.api import router as auth_router
+from adoptions.api import router as adoptions_router
+from django.contrib.auth.models import User
+
 from auth.token import verify_token
 from pet_management.api import router as pet_management_router
 
@@ -25,7 +27,9 @@ def add(request):
     return {'message': 'Hello api 1.00'}
 
 
-api.add_router('/auth/', auth_router, tags=['auth'])
+
+api.add_router("/auth/", auth_router,tags=["auth"])
+api.add_router("/adoptions/", adoptions_router,tags=["adoptions"])
 api.add_router('/pets/', pet_management_router, tags=['Pet Management'])
 
 urlpatterns = [
