@@ -1,11 +1,18 @@
+import os
 from pathlib import Path
+
+import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-a-7g7!_a6$111hv9p-n-8^9bbk3-r)*2_39h8o4fjqb^8p_7t='
+env = environ.Env()
+environ.Env.read_env()
 
-DEBUG = True
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+DEBUG = os.getenv('DEBUG')
 
 CORS_ALLOWED_ORIGINS = [
     'https://example.com',
@@ -14,7 +21,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
 ]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -59,13 +66,45 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rescatadog.wsgi.application'
 
+#  if os.getenv('ENGINE').tolower() == "postgres" {
+#  DATABASES = {
+#  'default': {
+#  'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#  'NAME': os.getenv('DATABASE_NAME'),
+#  'USER': os.getenv('DATABASE_USER'),
+#  'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+#  'HOST': os.getenv('DATABASE_HOST'),
+#  'DATABASE_PORT': os.getenv('DATABASE_PORT'),
+#  },
+#  }
+#  } else {
+#  DATABASES = {
+#  'default': {
+#  'ENGINE': 'django.db.backends.sqlite3',
+#  'NAME': BASE_DIR / 'db.sqlite3',
+#  },
+#  }
+#  }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-}
+DATABASES = (
+    {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.getenv('DATABASE_NAME'),
+            'USER': os.getenv('DATABASE_USER'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+            'HOST': os.getenv('DATABASE_HOST'),
+            'DATABASE_PORT': os.getenv('DATABASE_PORT'),
+        },
+    }
+    if os.getenv('ENGINE', 'sqlite') == 'postgres'
+    else {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        },
+    }
+)
 
 
 AUTH_PASSWORD_VALIDATORS = [
