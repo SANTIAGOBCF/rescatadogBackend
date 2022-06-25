@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #Third-party apps
     'corsheaders',
     #Apps created by us
+    'adoptions'
 ]
 
 MIDDLEWARE = [

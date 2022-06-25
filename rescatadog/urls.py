@@ -4,6 +4,7 @@ from django.urls import path
 from ninja import NinjaAPI
 from ninja.security import HttpBearer
 from auth.api import router as auth_router
+from adoptions.api import router as adoptions_router
 from django.contrib.auth.models import User
 
 from auth.token import verify_token
@@ -23,6 +24,7 @@ def add(request):
 
 
 api.add_router("/auth/", auth_router,tags=["auth"])
+api.add_router("/adoptions/", adoptions_router,tags=["adoptions"])
 
 urlpatterns = [
     path("admin/", admin.site.urls),
