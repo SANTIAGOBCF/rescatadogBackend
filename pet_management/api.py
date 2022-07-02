@@ -21,7 +21,7 @@ def create(request, payload: CreatePetSchema):
         name=payload.name,
         description=payload.description,
         url=payload.url,
-        is_adopted=payload.is_adopted,
+        is_adopted=False,
         pet_category=pet_category,
         pet_profile=pet_profile,
         deleted=False

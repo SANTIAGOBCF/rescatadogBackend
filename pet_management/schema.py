@@ -31,7 +31,6 @@ class CreatePetSchema(ModelSchema):
             'name',
             'description',
             'url',
-            'is_adopted',
             'pet_category'
         ]
 
