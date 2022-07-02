@@ -32,9 +32,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    #Apps created by us
+    # Apps created by us
     'adoptions',
     'pet_management',
+    'user_profile',
 ]
 
 MIDDLEWARE = [
