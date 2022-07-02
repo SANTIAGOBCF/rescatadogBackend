@@ -5,7 +5,7 @@ from django.db import models
 class PetCategory(models.Model):
     name = models.CharField(max_length=180)
     created_at=models.DateTimeField(auto_now=datetime.now)
-    updated_at=models.DateTimeField()
+    updated_at=models.DateTimeField(null=True)
     deleted=models.BooleanField(auto_created=False)
 
 
@@ -14,7 +14,7 @@ class PetProfile(models.Model):
     age = models.IntegerField()
     location = models.CharField(max_length=250)
     created_at=models.DateTimeField(auto_now=datetime.now)
-    updated_at=models.DateTimeField()
+    updated_at=models.DateTimeField(null=True)
     deleted=models.BooleanField(auto_created=False)
 
 
@@ -32,5 +32,5 @@ class Pet(models.Model):
         on_delete=models.CASCADE
     )
     created_at=models.DateTimeField(auto_now=datetime.now)
-    updated_at=models.DateTimeField()
+    updated_at=models.DateTimeField(null=True)
     deleted=models.BooleanField(auto_created=False)
