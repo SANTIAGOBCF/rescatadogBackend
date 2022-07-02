@@ -48,6 +48,9 @@ def get_categories(request):
 
 @router.get('/{pet_id}', response=ResponsePetSchema)
 def get_by_id(request, pet_id: int):
+    if pet_id == 0:
+        pet = Pet.objects.latest('id')
+        return pet
     pet = get_object_or_404(Pet, id=pet_id)
     return pet
 
