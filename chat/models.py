@@ -9,6 +9,6 @@ class Chat(BaseModel):
 
 
 class Message(BaseModel):
-    chat = models.ForeignKey(Chat)
+    message_chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     # user = models.ForeignKey(User)
     text = models.TextField()
