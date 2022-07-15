@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  rescatadog:
+    container_name: rescatadog
+    image: rescatadog
+    build: .
+    env_file:
+      - ./.env
+    depends_on:
+      - "app_db"
+    ports:
+      - "8020:8020"
+    volumes:
+      - .:/opt/app/rescatadog
+
+  app_db:
+    container_name: app_db
+    restart: always
+    image: postgres:12
+    env_file:
+        - ./.env
+    volumes:
+      - rescatadog-db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    command: ["postgres", "-c", "log_statement=all"]
+
+volumes:
+  rescatadog-db:
+    name: rescatadog-db
