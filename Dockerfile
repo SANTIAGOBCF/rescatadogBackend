@@ -12,7 +12,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 RUN mkdir -p /opt/app
 RUN mkdir -p /opt/app/rescatadog
 COPY . /opt/app/rescatadog/
-COPY requirements.txt start-server.sh /opt/app/rescatadog
+COPY requirements.txt start-server.sh /opt/app/rescatadog/
 WORKDIR /opt/app/rescatadog
 RUN pip install -r requirements.txt
 RUN chown -R www-data:www-data /opt/app/rescatadog
