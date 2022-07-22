@@ -8,6 +8,9 @@ from adoptions.api import router as adoptions_router
 from auth.api import router as auth_router
 from auth.token import verify_token
 from pet_management.api import router as pet_management_router
+
+# agregado
+from prueba.api import router as prueba_router
 from user_profile.api import router as user_profile_router
 
 
@@ -31,6 +34,7 @@ api.add_router('/auth/', auth_router, tags=['auth'])
 api.add_router('/adoptions/', adoptions_router, tags=['adoptions'])
 api.add_router('/pets/', pet_management_router, tags=['Pet Management'])
 api.add_router('/user/', user_profile_router, tags=['user'])
+api.add_router('/prueba/profile/', prueba_router, tags=['profile'])
 
 urlpatterns = [
     path('admin/', admin.site.urls),

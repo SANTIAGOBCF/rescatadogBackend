@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'adoptions',
     'pet_management',
     'user_profile',
+    'prueba',
 ]
 
 MIDDLEWARE = [
