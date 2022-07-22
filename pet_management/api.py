@@ -2,10 +2,13 @@ from django.shortcuts import get_object_or_404
 from ninja import Router
 
 from .models import Pet, PetCategory, PetProfile
-from .schema import CreatePetSchema, ResponsePetSchema, ResponsePetCategorySchema, CreatePetCategorySchema
+from .schema import CreatePetSchema, ResponseAllPetSchema, ResponsePetSchema, ResponsePetCategorySchema, CreatePetCategorySchema
 
 router = Router()
 
+@router.get('', response=list[ResponseAllPetSchema])
+def get_pets(request):
+    return Pet.objects.all()
 
 @router.post('', response=ResponsePetSchema)
 def create(request, payload: CreatePetSchema):
