@@ -34,6 +34,10 @@ class CreatePetSchema(ModelSchema):
             'pet_category'
         ]
 
+class ResponseAllPetSchema(ModelSchema):
+    class Config:
+        model = Pet
+        model_fields = '__all__'
 
 class ResponsePetSchema(ModelSchema):
     pet_category: ResponsePetCategorySchema = None
@@ -42,9 +46,3 @@ class ResponsePetSchema(ModelSchema):
         model = Pet
         model_fields = '__all__'
 
-class ResponseAllPetSchema(ModelSchema):
-    #pet_category: ResponsePetCategorySchema
-    #pet_profile: ResponsePetProfileSchema 
-    class Config:
-        model = Pet
-        model_fields = '__all__'
