@@ -17,6 +17,7 @@ def create(request, payload: CreatePetSchema):
         gender=payload.gender,
         age=payload.age,
         location=payload.location,
+        color=payload.color,
         deleted=False
     )
     pet_profile.save()
@@ -37,6 +38,7 @@ def create(request, payload: CreatePetSchema):
 def create_category(request, payload: CreatePetCategorySchema):
     pet_category = PetCategory(
         name=payload.name,
+        image=payload.image,
         deleted=False
     )
     pet_category.save()

@@ -6,7 +6,7 @@ from .models import Pet, PetCategory, PetProfile
 class CreatePetCategorySchema(ModelSchema):
     class Config:
         model = PetCategory
-        model_fields = ['name']
+        model_fields = ['name','image']
 
 
 class ResponsePetCategorySchema(ModelSchema):
@@ -25,6 +25,7 @@ class CreatePetSchema(ModelSchema):
     gender: str
     age: int
     location: str
+    color: str
     class Config:
         model = Pet
         model_fields = [
@@ -35,6 +36,7 @@ class CreatePetSchema(ModelSchema):
         ]
 
 class ResponseAllPetSchema(ModelSchema):
+    pet_profile: ResponsePetProfileSchema = None
     class Config:
         model = Pet
         model_fields = '__all__'
