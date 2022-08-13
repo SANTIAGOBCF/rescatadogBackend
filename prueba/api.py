@@ -3,14 +3,12 @@ from typing import List
 from ninja import Router
 
 from .models import ProfileUser
-from .schema import (  # ResponsePutSchema,
+from .schema import (
     GetProfileSchema,
     MessageSchema,
     ProfileUserPutSchema,
+    ResponsePutSchema,
 )
-
-# from ninja.files import UploadedFile
-
 
 router = Router()
 
@@ -33,15 +31,14 @@ def get_one(request, id: int):
         return 404, {'message': 'Datos no encontrados'}
 
 
-@router.put('/{id}', response={200: MessageSchema, 404: MessageSchema})
-def put_one(request, id: int, data: ProfileUserPutSchema):
+@router.put('/{id}', auth=None, response={200: ResponsePutSchema, 404: MessageSchema})
+def put_one_one(request, id: int, data: ProfileUserPutSchema):
     try:
         profile = ProfileUser.objects.get(pk=id)
         profile.phone = data.phone
         profile.address = data.address
         profile.about = data.about
-        profile.image = data.image
         profile.save()
-        return 200, {'message': 'Datos modificados'}
+        return 200, profile
     except ProfileUser.DoesNotExist:
         return 404, {'message': 'Datos no encontrados'}

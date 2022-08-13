@@ -21,7 +21,7 @@ class GetProfileSchema(ModelSchema):
 class ProfileUserPutSchema(ModelSchema):
     class Config:
         model = ProfileUser
-        model_fields = ['phone', 'address', 'about', 'image']
+        model_fields = ['phone', 'address', 'about']
 
 
 class ResponsePutSchema(ModelSchema):
