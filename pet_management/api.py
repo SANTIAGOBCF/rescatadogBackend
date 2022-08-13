@@ -2,13 +2,22 @@ from django.shortcuts import get_object_or_404
 from ninja import Router
 
 from .models import Pet, PetCategory, PetProfile
-from .schema import CreatePetSchema, ResponseAllPetSchema, ResponsePetSchema, ResponsePetCategorySchema, CreatePetCategorySchema
+from .schema import (
+    CreatePetCategorySchema,
+    CreatePetSchema,
+    ResponseAllPetSchema,
+    ResponsePetCategorySchema,
+    ResponsePetSchema,
+    ResponsePetSearch,
+)
 
 router = Router()
+
 
 @router.get('', response=list[ResponseAllPetSchema])
 def get_pets(request):
     return Pet.objects.all()
+
 
 @router.post('', response=ResponsePetSchema)
 def create(request, payload: CreatePetSchema):
@@ -18,7 +27,7 @@ def create(request, payload: CreatePetSchema):
         age=payload.age,
         location=payload.location,
         color=payload.color,
-        deleted=False
+        deleted=False,
     )
     pet_profile.save()
     pet = Pet(
@@ -28,7 +37,7 @@ def create(request, payload: CreatePetSchema):
         is_adopted=False,
         pet_category=pet_category,
         pet_profile=pet_profile,
-        deleted=False
+        deleted=False,
     )
     pet.save()
     return pet
@@ -36,11 +45,7 @@ def create(request, payload: CreatePetSchema):
 
 @router.post('/category', response=ResponsePetCategorySchema)
 def create_category(request, payload: CreatePetCategorySchema):
-    pet_category = PetCategory(
-        name=payload.name,
-        image=payload.image,
-        deleted=False
-    )
+    pet_category = PetCategory(name=payload.name, image=payload.image, deleted=False)
     pet_category.save()
     return pet_category
 
@@ -59,3 +64,9 @@ def get_by_id(request, pet_id: int):
     pet = get_object_or_404(Pet, id=pet_id)
     return pet
 
+
+# agregado
+@router.get('/pet/search', auth=None, response=list[ResponsePetSearch])
+def pet_search(request, name):
+    pet = Pet.objects.filter(name__icontains=f'{name}')
+    return pet
