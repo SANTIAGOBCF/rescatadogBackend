@@ -1,4 +1,5 @@
 from datetime import datetime
+from turtle import setx
 from django.db import models
 
 
@@ -7,12 +8,13 @@ class PetCategory(models.Model):
     created_at=models.DateTimeField(auto_now=datetime.now)
     updated_at=models.DateTimeField(null=True)
     deleted=models.BooleanField(auto_created=False)
-
+    image=models.CharField(max_length=180,default='')
 
 class PetProfile(models.Model):
     gender = models.CharField(max_length=60)
     age = models.IntegerField()
     location = models.CharField(max_length=250)
+    color = models.CharField(max_length=20,default='')
     created_at=models.DateTimeField(auto_now=datetime.now)
     updated_at=models.DateTimeField(null=True)
     deleted=models.BooleanField(auto_created=False)
