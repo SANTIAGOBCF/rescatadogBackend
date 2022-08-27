@@ -18,6 +18,16 @@ router = Router()
 def get_pets(request):
     return Pet.objects.all()
 
+@router.get('/notAdopted', response=list[ResponseAllPetSchema])
+def get_petsNotAdopted(request):
+    return Pet.objects.filter(is_adopted=False)
+
+@router.put('/{pet_id}/adopt', response=ResponseAllPetSchema)
+def put_adopt(request, pet_id: int):
+    updatePet= Pet.objects.get(id=pet_id)
+    updatePet.is_adopted=True
+    updatePet.save()
+    return updatePet
 
 @router.post('', response=ResponsePetSchema)
 def create(request, payload: CreatePetSchema):
