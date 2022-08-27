@@ -1,8 +1,9 @@
+
 from adoptions.models import *
 from ninja import Router
 
 from adoptions.schema import AdoptionAllSchema, CreateAdoptionSchema
-
+from django.contrib.auth.models import User
 router = Router()
 
 @router.post('/', summary="Register Adoption",description="Fill" )
@@ -25,3 +26,12 @@ def getAllAdoptionsByAdopterId(request, adopterId: int):
 @router.get('/rescuerId/{rescuerId}',response=list[AdoptionAllSchema] )
 def getAllAdoptionsByRescuerId(request, rescuerId: int):
     return Adoption.objects.filter(rescuer_id=rescuerId)
+
+@router.get('/ownerPet/{email}/{petId}',response=AdoptionAllSchema )
+def getAllAdoptions(request,email,petId):
+    us=User.objects.get(email=email)
+    a=Adoption.objects.first(adopter_id=us.id,pet_id=petId)
+    if a!=None:
+     return a
+    else:
+     return {"message": "No es dueño de esta mascota"}
