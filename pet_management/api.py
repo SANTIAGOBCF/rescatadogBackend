@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from ninja import Router
 
 from .models import Pet, PetCategory, PetProfile
+from .rekognition import category_detection, upload_picture_to_bucket
 from .schema import (
     CreatePetCategorySchema,
     CreatePetSchema,
@@ -18,20 +19,25 @@ router = Router()
 def get_pets(request):
     return Pet.objects.all()
 
+
 @router.get('/notAdopted', response=list[ResponseAllPetSchema])
 def get_petsNotAdopted(request):
     return Pet.objects.filter(is_adopted=False)
 
+
 @router.put('/{pet_id}/adopt', response=ResponseAllPetSchema)
 def put_adopt(request, pet_id: int):
-    updatePet= Pet.objects.get(id=pet_id)
-    updatePet.is_adopted=True
+    updatePet = Pet.objects.get(id=pet_id)
+    updatePet.is_adopted = True
     updatePet.save()
     return updatePet
 
+
 @router.post('', response=ResponsePetSchema)
 def create(request, payload: CreatePetSchema):
-    pet_category = PetCategory.objects.get(pk=payload.pet_category)
+    upload_picture_to_bucket(payload.url, 'prueba.jpg')
+    category_id = category_detection('prueba.jpg')
+    pet_category = PetCategory.objects.get(pk=category_id)
     pet_profile = PetProfile(
         gender=payload.gender,
         age=payload.age,

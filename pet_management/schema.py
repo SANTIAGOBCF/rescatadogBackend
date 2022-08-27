@@ -29,7 +29,7 @@ class CreatePetSchema(ModelSchema):
 
     class Config:
         model = Pet
-        model_fields = ['name', 'description', 'url', 'pet_category']
+        model_fields = ['name', 'description', 'url']
 
 
 class ResponseAllPetSchema(ModelSchema):
